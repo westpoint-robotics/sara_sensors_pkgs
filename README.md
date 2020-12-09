@@ -47,7 +47,13 @@ To run Google Cartographer with the Jackal using the SARA sensor array, use the 
 roslaunch sara_description jackal_cartographer_sara_sensors.launch which_scan:=ouster
 roslaunch sara_description jackal_cartographer_sara_sensors.launch which_scan:=realsense
 ```
+## Troubleshooting
 
+If you run into trouble involving "ignition fuel", do the following (you can use whatever text editor you prefer):
+```
+gedit ~/ignition/fuel/config.yaml
+```
+Edit the line "api.ignitionfuel.org" to read, "fuel.ignitionrobotics.org".  Save and close.
 
 ### TODO:
 ```
