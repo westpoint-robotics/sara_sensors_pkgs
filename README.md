@@ -1,6 +1,6 @@
 # sara_sensors_pkgs
 
-## Dependencies
+## Dependencies and Installation
 - System space packages
    ``` 
    sudo apt-get install ros-melodic-jackal*
@@ -9,6 +9,8 @@
    sudo apt-get install ros-melodic-realsense2*
    sudo apt-get install ros-melodic-cartographer-ros
    sudo apt-get install ros-melodic-cartographer-ros-msgs
+   cd /opt/ros/melodic/share
+   sudo git clone https://github.com/MoriKen254/timed_roslaunch
    ```
 - catkin_ws packages
    ``` 
