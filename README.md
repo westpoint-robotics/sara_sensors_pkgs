@@ -51,11 +51,18 @@ roslaunch sara_description jackal_cartographer_sara_sensors.launch which_scan:=r
 ```
 ## Troubleshooting
 
-If you run into trouble involving "ignition fuel", do the following (you can use whatever text editor you prefer):
+* If you run into trouble involving "ignition fuel", do the following (you can use whatever text editor you prefer):
 ```
 gedit ~/ignition/fuel/config.yaml
 ```
 Edit the line "api.ignitionfuel.org" to read, "fuel.ignitionrobotics.org".  Save and close.
+
+* When working with the RealSense depth camera, you may run into an error saying the tf for the camera cannot be found.  To solve this, copy the rule file below into /etc/udev/rules.d/
+```
+https://github.com/IntelRealSense/librealsense/blob/master/config/99-realsense-libusb.rules
+```
+While this should not be an issue of realsense2_camera, realsense2_description and the librealsense2 drivers were installed as indicated above, there is a chance you will encouter this issue.
+
 
 ### TODO:
 ```
