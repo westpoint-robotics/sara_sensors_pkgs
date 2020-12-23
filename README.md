@@ -13,11 +13,10 @@
    sudo git clone https://github.com/MoriKen254/timed_roslaunch
    ```
 - catkin_ws packages
+   If you do not have a catkin workspace, you can follow the instructions in [ROS wiki tutorials](http://wiki.ros.org/catkin/Tutorials/create_a_workspace) for how to create one.  Afterward, install the SARA sensors packages as instructed below.  If you name your workspace something other than, "catkin_ws" (e.g. my_awesome_ws), just replace "catkin_ws" with the name you used.
    ``` 
    cd ~/catkin_ws/src 
    git clone https://github.com/westpoint-robotics/sara_sensors_pkgs.git
-   cd sara_sensors_pkgs
-   git clone https://github.com/jackal/jackal_cartographer_navigation
    ```
 
 ## The SARA Sensors Package
