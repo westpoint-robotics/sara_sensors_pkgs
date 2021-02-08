@@ -1,10 +1,5 @@
 <?xml version="1.0"?>
 <robot name="jackal" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <!-- -->
-  <xacro:include filename="$(find sara_description)/urdf/sara.urdf.xacro"/>
-  
-  <xacro:include filename="$(find jackal_description)/urdf/inertial_tensors.urdf.xacro"/>
-  
   <xacro:property name="PI" value="3.1415926535897931" />
 
   <xacro:property name="wheelbase" value="0.262" />
@@ -129,10 +124,7 @@
         iyy="0.3922" iyz="-0.0009"
         izz="0.4485"/>
       </inertial>
-      <parent link="base_link"/>
-      <child link="chassis_link" />
   </link>
-
 
   <xacro:unless value="$(optenv JACKAL_FRONT_ACCESSORY_FENDER 0)">
     <link name="front_fender_link">
@@ -207,7 +199,7 @@
   <!-- TODO: Make this internal_imu_link or something, and use a mixed-in xacro
        to supply the joint between it and imu_link. This is important so that imu_link
        always points to the "active" IMU. When an upgrade IMU is connected, the
-       internal_imu_link should remain, but imu_link should point to the upgrade one. 
+       internal_imu_link should remain, but imu_link should point to the upgrade one. -->
   <link name="imu_link">
     <inertial>
       <mass value="0.001"/>
@@ -218,7 +210,7 @@
   <joint name="imu_joint" type="fixed">
     <parent link="chassis_link" />
     <child link="imu_link" />
-  </joint>-->
+  </joint>
 
   <!-- TODO: Same note as applies to imu_link -->
   <link name="navsat_link">
@@ -267,7 +259,4 @@
 
   <!-- Optional custom includes. -->
   <xacro:include filename="$(optenv JACKAL_URDF_EXTRAS empty.urdf)" />
-  <!-- -->
-  <xacro:sara parent_link="base_link" version="jackal"/>
-  
 </robot>

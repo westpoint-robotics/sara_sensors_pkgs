@@ -4,8 +4,23 @@
   for use in Google Cartographer -->
   <arg name="which_scan" default="realsense"/>
   
-  <!-- Launch Gazebo for the Jackal -->
-  <include file="$(find jackal_gazebo)/launch/jackal_world.launch" />
+  <!-- Configuration of Jackal which you would like to simulate.
+       See jackal_description for details. -->
+  <arg name="config" default="base" />
+  
+  <!-- Load Jackal's description, controllers, and teleop nodes. 
+  <include file="$(find jackal_control)/launch/control.launch"/>-->
+  <!---->
+  <include file="$(find jackal_description)/launch/description.launch"> 
+    <arg name="config" value="$(arg config)" />
+  </include> 
+  
+  <!--The "sara_description" version of demo_pointcloud.launch merely comments out Rviz so that it won't try to launch in the field -->
+  <include file="$(find sara_description)/launch/demo_pointcloud.launch" />
+  <!--
+  <include file="$(find realsense2_camera)/launch/demo_pointcloud.launch" />
+  -->
+
   <!-- Wait for 22 ("time") seconds and then launch the pointcloud to laserscan
   node for the Ouster, if that is the selected pointcloud sensor 
   <group if="$(eval arg('which_scan') == 'ouster')">
@@ -26,9 +41,18 @@
       <arg name="value" value="which_scan:=realsense" />
     </include>
   </group>
-  
-  <include file="$(find microstrain_mips)/launch/microstrain.launch"/>
-  
+  <!-- -->
+  <include file="$(find timed_roslaunch)/launch/timed_roslaunch.launch">
+    <arg name="time" value="5" />
+    <arg name="pkg" value="microstrain_mips" />
+    <arg name="file" value="microstrain.launch" />
+  </include>
+  <!--<include file="$(find microstrain_mips)/launch/microstrain.launch"/>-->
+  <!--
+  <include file="$(find jackal_navigation)/launch/include/amcl.launch">
+    <arg name="use_map_topic" value="true"/>
+  </include>
+  -->
   <!-- Wait for 10 ("time") seconds and then launch Cartographer for Jackal -->
   <include file="$(find timed_roslaunch)/launch/timed_roslaunch.launch">
     <arg name="time" value="10" />
@@ -45,5 +69,9 @@
     <arg name="file" value="view_robot.launch" />
     <arg name="value" value="config:=gmapping" />
   </include>
+  
+  <!--
+  <node pkg="teleop_twist_keyboard" name="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" />
+  -->
 
 </launch>
