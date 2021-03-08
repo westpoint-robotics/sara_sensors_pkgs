@@ -1,31 +1,41 @@
-# sara_sensors_pkgs
+# sara_description
 
-## Dependencies and Installation
-- System space packages
+## Dependencies
+- velodyne gazebo plugin & velodyne description
    ``` 
-   sudo apt-get install ros-melodic-jackal*
-   sudo apt-get install ros-melodic-velodyne*
-   sudo apt-get install ros-melodic-pointcloud-to-laserscan
-   sudo apt-get install ros-melodic-realsense2*
-   sudo apt-get install ros-melodic-cartographer-ros
-   sudo apt-get install ros-melodic-cartographer-ros-msgs
-   cd /opt/ros/melodic/share
-   sudo git clone https://github.com/MoriKen254/timed_roslaunch
+   sudo apt-get install ros-melodic-velodyne* 
    ```
-- catkin_ws packages
-   If you do not have a catkin workspace, you can follow the instructions in [ROS wiki tutorials](http://wiki.ros.org/catkin/Tutorials/create_a_workspace) for how to create one.  Afterward, install the SARA sensors packages as instructed below.  If you name your workspace something other than, "catkin_ws" (e.g. my_awesome_ws), just replace "catkin_ws" with the name you used.
+- ouster description
    ``` 
    cd ~/catkin_ws/src 
-   git clone https://github.com/westpoint-robotics/sara_sensors_pkgs.git
+   git clone https://github.com/wilselby/ouster_example.git 
+   ```
+- realsense2
+   ``` 
+   sudo apt-get install ros-melodic-realsense2-description 
+   ```
+- husky and/or jackal and/or gvrbot
+   ```
+   git clone https://github.com/husky/husky.git 
+   git clone https://github.com/westpoint-robotics/usma_jackal.git 
+   git clone https://github.com/westpoint-robotics/usma_gvrbot.git 
    ```
 
 ## The SARA Sensors Package
 
-As of 8 Dec, 2020, these packages are complete for use with the Clearpath Jackal as simulated in Gazebo.  The packages will let you use a simulated Jackal with the SARA sensor array mounted on it to perform Google Cartographer.  Within the jackal_description package inside of the sara_sensors_pkgs, there is a costomized versino of the jackal.urdf.xacro which incorporates the SARA sensors modular frame (a modular frame constructed with 8020 for mounting a set of sensors in a particular configuration for SLAM, stereo vision, etc.)  If you want to run a basic demo without concerning yourself with Cartographer, you can run the following:
+Install the SARA Sensors package in the same catkin workspace as the above dependencies (the ones not installed with sudo apt-get)
 
-` roslaunch sara_description sara_sensors_demos.launch which_robot:=jackal `
+```
+cd ~/catkin_ws/src
+git clone https://github.com/westpoint-robotics/sara_description.git
+```
+Within the sara_description package, there are versions of husky.urdf.xacro, jackal.urdf.xacro, and gvrbot.urdf.xacro that are modified to allow for the incorporation of the SARA sensors modular frame (a modular frame constructed with 8020 for mounting a set of sensors in a particular configuration for SLAM, stereo vision, etc.)  Once you have the husky, jackal, and gvrbot packages installed in your catkin workspace, you will have to go to the urdf directory within each package, and replace that robot's primary urdf with the one from the SARA package.  Having done that, you will be able to run the demo launch file for any of the three robots as follows:
 
-In future updates, the "which_robot" parameter will allow you to indirectly launch a husky, jackal, or gvrbot gazebo simulation.  It also is used to determine whether to use the wider or narrower version of the 8020 frame (sensor placement within the frame is always the same), and what the origin of the frame is relative to the robot in question.  For the GVR-Bot, the frame is currently centered, instead of at the front of the robot as in the case of the husky and jackal.  This may be modified in line 45 of the sara.urdf.xacro
+1. ` roslaunch sara_description sara_sensors_demos.launch which_robot:=husky `
+2. ` roslaunch sara_description sara_sensors_demos.launch which_robot:=jackal `
+3. ` roslaunch sara_description sara_sensors_demos.launch which_robot:=gvrbot `
+
+The "which_robot" parameter allows you to indirectly launch a husky, jackal, or gvrbot gazebo simulation.  It also is used to determine whether to use the wider or narrower version of the 8020 frame (sensor placement within the frame is always the same), and what the origin of the frame is relative to the robot in question.  For the GVR-Bot, the frame is currently centered, instead of at the front of the robot as in the case of the husky and jackal.  This may be modified in line 45 of the sara.urdf.xacro
 
 ```
  <xacro:if value="${version == 'gvrbot'}">
@@ -42,57 +52,9 @@ You can also use RViz alone with:
 ```
 roslaunch <current robot>_viz view_model.launch
 ```
-## Cartographer (Gazebo)
-To run Google Cartographer with the Jackal using the SARA sensor array, use the command below.  There is a parameter called, "which_scan" that defaults to "ouster" and can be set to "ouster" or "realsense" and will use the pointcloud published by the associated sensor to generate the laser scan topic that Cartographer subscribes to.
-```
-roslaunch sara_description jackal_cartographer_sara_sensors.launch which_scan:=ouster
-roslaunch sara_description jackal_cartographer_sara_sensors.launch which_scan:=realsense
-```
-
-## Cartographer (Teleop)
-Running Google Cartographer on the Jackal using teleop (i.e. not closed loop control) will allow you to use a joystick controller, such as an XBox controller to drive the Jacal around a space and build a map of that space.  At any point during your exploration, if you can connect a keyboard and monitor to the Jackal companion, you can save a pair of files (a yaml and pgm file) that capture the map built to that point in time.  As with the Gazebo version of this launch file, you may specify the parameter "which_scan" to indicate whether you want the pointcloud generated by "ouster" (OS1-64) or "realsense" (RealSense D435i) to be converted to the laser scan (rostopic, /front/scan) used by Cartographer.  You can edit "jackal_teleop_cartographer.launch" if you want to hardcode a preferred default.
-The commands for running the open loop Cartographer and for saving map data are as follows:
-```
-roslaunch sara_description jackal_teleop_cartographer.launch
-rosrun map_server map_saver -f my_map
-```
-
-## Troubleshooting
-
-* If you run into trouble involving "ignition fuel", do the following (you can use whatever text editor you prefer):
-```
-gedit ~/ignition/fuel/config.yaml
-```
-Edit the line "api.ignitionfuel.org" to read, "fuel.ignitionrobotics.org".  Save and close.
-
-* When working with the RealSense depth camera, you may run into an error saying the tf for the camera cannot be found.  To solve this, copy the rule file below into /etc/udev/rules.d/
-```
-https://github.com/IntelRealSense/librealsense/blob/master/config/99-realsense-libusb.rules
-```
-While this should not be an issue of realsense2_camera, realsense2_description and the librealsense2 drivers were installed as indicated above, there is a chance you will encouter this issue.
-
-* When transitioning from running Google Cartographer in Gazebo to running on the Jackal, the following is recommended:
-```
-rosrun rqt_tf_tree rqt_tf_tree
-```
-
-If your TF tree does not go all the way down to "odom" or "map", check /etc/hosts on the Jackal and companion computers.  Each should have the other listed.
-```
-sudo gedit /etc/hosts
-```
-On the companion computer, you want a line such as:
-```
-192.168.131.1   administrator
-```
-On the Jackal computer, you want the same line, but with whatever is the name listed in "hostname" on the companion (e.g. "nuc43").  Your address may have a number other than 50 at the end; check the companion with ifconfig when both machines are powered on and connected by Cat5 cable. 
-```
-192.168.131.50 nuc43
-```
-
 
 ### TODO:
 ```
- -Update with Husky and GVR-Bot
  -Make more self-contained to eliminate need to edit robot repositories
  -Make OS1-64 work in Gazebo without using Velodyne
  -Add instructions for working with actual robots ```
