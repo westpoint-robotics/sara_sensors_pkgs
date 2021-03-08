@@ -1,4 +1,4 @@
-# sara_sensors_pkgs
+# sara_sensors_pkgs NUC40
 
 ## Dependencies and Installation
 - System space packages
