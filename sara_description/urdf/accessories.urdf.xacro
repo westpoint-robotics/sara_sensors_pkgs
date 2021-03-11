@@ -20,7 +20,7 @@
 
     <xacro:if value="$(optenv sara_LASER_TYPE 2)">   -->
       <xacro:include filename="$(find ouster_description)/urdf/OS1-64.urdf.xacro"/>
-      <xacro:OS1-64 parent="top_mount" name="os1_sensor" hz="10" samples="220">
+      <xacro:OS1-64 parent="top_mount" name="os_sensor" hz="10" samples="220">
         <origin xyz="0 0 0.18" rpy="0 0 0" />
       </xacro:OS1-64>  
      <!--    </xacro:if>

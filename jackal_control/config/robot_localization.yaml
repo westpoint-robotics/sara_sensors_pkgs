@@ -10,7 +10,7 @@ odom0_config: [false, false, false,
                false, false, false]
 odom0_differential: false
 
-imu0: /gx5/imu/data #/imu/data
+imu0: /imu/data #/gx5/imu/data
 imu0_config: [false, false, false,
               true, true, true,
               false, false, false,
