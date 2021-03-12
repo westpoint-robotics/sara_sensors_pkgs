@@ -2,12 +2,12 @@
   <!-- The "which_scan" parameter determines which sensor (Ouster OS1-64 or 
   Realsense D435i) will have the pointcloud it publishes mapped into a laserscan
   for use in Google Cartographer -->
-  <arg name="which_scan" default="realsense"/>
+  <arg name="which_scan" default="ouster"/>
   
   <!-- Launch Gazebo for the Jackal -->
   <include file="$(find jackal_gazebo)/launch/jackal_world.launch" />
   <!-- Wait for 22 ("time") seconds and then launch the pointcloud to laserscan
-  node for the Ouster, if that is the selected pointcloud sensor 
+  node for the Ouster, if that is the selected pointcloud sensor -->
   <group if="$(eval arg('which_scan') == 'ouster')">
     <include file="$(find timed_roslaunch)/launch/timed_roslaunch.launch">
       <arg name="time" value="22" />
@@ -15,9 +15,9 @@
       <arg name="file" value="pc2l_ouster.launch" />
       <arg name="value" value="which_scan:=ouster" />
     </include>
-  </group>-->
+  </group>
   <!-- Wait for 22 ("time") seconds and then launch the pointcloud to laserscan
-  node for the Realsense, if that is the selected pointcloud sensor -->
+  node for the Realsense, if that is the selected pointcloud sensor 
   <group if="$(eval arg('which_scan') == 'realsense')">
     <include file="$(find timed_roslaunch)/launch/timed_roslaunch.launch">
       <arg name="time" value="22" />
@@ -25,10 +25,10 @@
       <arg name="file" value="pc2l_realsense.launch" />
       <arg name="value" value="which_scan:=realsense" />
     </include>
-  </group>
-  
+  </group>-->
+  <!--
   <include file="$(find microstrain_mips)/launch/microstrain.launch"/>
-  
+  -->
   <!-- Wait for 10 ("time") seconds and then launch Cartographer for Jackal -->
   <include file="$(find timed_roslaunch)/launch/timed_roslaunch.launch">
     <arg name="time" value="10" />
