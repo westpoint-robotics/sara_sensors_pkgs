@@ -1,5 +1,7 @@
 # sara_sensors_pkgs
 
+## NOTE: pc2l and ouster packages should be obtained from [usma_LiDAR](https://github.com/westpoint-robotics/usma_LiDAR)
+
 ## Dependencies and Installation
 - System space packages
    ``` 
@@ -92,7 +94,8 @@ On the Jackal computer, you want the same line, but with whatever is the name li
 
 ### TODO:
 ```
+ -Remove pc2l and ouster_exmaple from the repository
  -Update with Husky and GVR-Bot
  -Make more self-contained to eliminate need to edit robot repositories
  -Make OS1-64 work in Gazebo without using Velodyne
- -Add instructions for working with actual robots ```
+ ```
