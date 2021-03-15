@@ -98,4 +98,4 @@ On the Jackal computer, you want the same line, but with whatever is the name li
  -Update with Husky and GVR-Bot
  -Make more self-contained to eliminate need to edit robot repositories
  -Make OS1-64 work in Gazebo without using Velodyne
- ```
+ -Add instructions for working with actual robots ```
