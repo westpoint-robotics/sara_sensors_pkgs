@@ -2,7 +2,8 @@
     
     <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan2">
       <remap from="cloud_in" to="/os_cloud_node/points"/> <!-- "/velodyne_points2"/> -->
-      <remap from="scan" to="/front/scan" />
+<!--      <remap from="scan" to="/front/scan" />-->
+      <remap from="scan" to="scan" />
       <rosparam>
         target_frame: os_sensor <!-- velodyne2 -->
         transform_tolerance: 0.021
