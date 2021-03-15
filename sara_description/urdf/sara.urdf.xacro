@@ -68,7 +68,7 @@
   <joint name="os_sensor_joint" type="fixed">
     <parent link="unit_base_link" />
     <child link="os_sensor" />
-    <origin xyz="0.0 0 0.335" rpy="0 0 1.5708" />
+    <origin xyz="0.0 0 0.335" rpy="0 0 0" />
   </joint>
   <!-- 
   <xacro:OS1-64 parent="unit_base_link" name="os_sensor" topic_points="/os_cloud_node/points"/>
