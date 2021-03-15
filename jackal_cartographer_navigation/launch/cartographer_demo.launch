@@ -19,9 +19,9 @@
       type="cartographer_node" args="
           -configuration_directory
               $(find jackal_cartographer_navigation)/config
-          -configuration_basename jackalv2.lua"
+          -configuration_basename jackal2d.lua"
       output="screen">
-<!--    <remap from="scan" to="front/scan" />-->
+    <remap from="scan" to="front/scan" />
     <remap from="odom" to="odometry/filtered" />
 <!--    <remap from="imu" to="/imu/data" />-->
     <remap from="points2" to="/os_cloud_node/points" />
