@@ -71,11 +71,7 @@
   <xacro:HDL-32E parent="unit_base_link" name="velodyne2" topic="/velodyne_points2" hz="10" samples="512">
     <origin xyz="0 0 0.535" rpy="0 0 1.5708" />
   </xacro:HDL-32E>
-  <!--
-  <xacro:OS1-64 topic_points="os1_cloud_node/points" parent="unit_base_link">
-    <origin xyz="0 0 0.335" rpy="0 0 0" />
-  </xacro:OS1-64>
-  -->
+  
   <!-- Microstrain IMU LINK -->
   <link name="microstrain_link">
     <visual>

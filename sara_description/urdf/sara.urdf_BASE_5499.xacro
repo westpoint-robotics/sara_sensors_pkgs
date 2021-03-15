@@ -96,7 +96,6 @@
     <child link="microstrain_link" />
     <origin xyz="0 0 0.00645" rpy="0 0 0" />
   </joint>
-  
 <!-- FLIR -->
   <link name="flirL_link">
     <visual>
