@@ -28,7 +28,7 @@
   
 <!--  <include file="$(find microstrain_mips)/launch/microstrain.launch"/>-->
   
-  <include file="$(find jackal_viz)/launch/view_robot.launch">
+  <include file="$(find sara_description)/launch/view_robot.launch">
     <arg name="config" value="gmapping" /> 
   </include>-->
 

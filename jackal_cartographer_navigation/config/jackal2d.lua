@@ -42,6 +42,7 @@ options = {
   landmarks_sampling_ratio = 1.,
 }
 
+TRAJECTORY_BUILDER_2D.use_imu_data = true -- original: false
 MAP_BUILDER.use_trajectory_builder_2d = true
 TRAJECTORY_BUILDER_2D.num_accumulated_range_data = 1
 TRAJECTORY_BUILDER_2D.min_range = 1
