@@ -40,7 +40,7 @@
       <origin xyz="0.335 0.0 0.2800" rpy="0 0 0" />
     </xacro:if>
     <xacro:if value="${version == 'jackal'}">
-      <origin xyz="0.10 0 0.213" rpy="0 0 0" />
+      <origin xyz="0.00475 0 0.213" rpy="0 0 0" />
     </xacro:if>
     <xacro:if value="${version == 'gvrbot'}">
       <origin xyz="0.0 0.0 0.1675" rpy="0 0 0" />
