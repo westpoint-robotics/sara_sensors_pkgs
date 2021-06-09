@@ -129,8 +129,6 @@
         iyy="0.3922" iyz="-0.0009"
         izz="0.4485"/>
       </inertial>
-      <parent link="base_link"/>
-      <child link="chassis_link" />
   </link>
 
 
